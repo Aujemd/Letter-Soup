@@ -6,118 +6,166 @@ class GenerateSoup{
 
     putHorizontalWords(word, pos){
 
-        /*let i = 0;
+            let free = true
 
-            words.forEach(word => {
+            let i = pos
 
-                let j = 0 
+            let j = 0
+
+            do{
+                if(board[i] !== '*'){
+                    free = false
+                }
+                
+                i++
+                j++
+
+            }while(j < word.length);
+
+            i = pos
+
+            let limit
+
+            for(let i = 1; i < sizeBoard; i++){
+                
+                limit = i * sizeBoard 
+                
+                if(limit > pos){
+                    break
+                }
+            }
+
+            if(limit - pos < word.length){
+                free = false
+            }
+
+            if(free){
+                j = 0
 
                 do{
                     board[i] = word[j]
                     i++
                     j++
                 }while(j <word.length);
-
-                if(word.length < sizeBoard){
-                    let add = sizeBoard - word.length
-                    let count = 0
-                    do{
-                        board[i] = 'X'
-                        i++
-                        count++
-                    }while(count < add)
-                }
-            });
-
-            if(i < sizeBoard * sizeBoard){
-                do{
-                    board[i] = 'X'
-                    i++
-                }while(i < sizeBoard * sizeBoard)
-            }*/
-
-            let i = pos
-
-            let j = 0 
-
-            do{
-                board[i] = word[j]
-                i++
-                j++
-            }while(j <word.length);
-
-
-        return board;
-
+    
+                return board;
+            }else{
+                return free
+            }
     }
 
     putVerticalWords(word, pos){
-
         
-        /*let i = 0
-
-        words.forEach(word => {
-
-            let j = 0 
-
-            do{
-                board[i + j * sizeBoard] = word[j]
-                j++
-            }while(j <word.length);
-
-            i++
-        });*/
-
         let i = pos
         let j = 0
+        let free = true
+
         do{
-            board[i + j * sizeBoard] = word[j]
+            if(board[i + j * sizeBoard] !== '*' || i + j * sizeBoard > sizeBoard * sizeBoard){
+                free = false
+            }
             j++
-        }while(j <word.length);
+        }while(j < word.length);
 
-        i++
-        
-        return board;
-    }
+        j = 0
 
-    putDiagonalWords(word, pos, mainDiagonal){
-        
-        /*let i = 0
-
-        words.forEach(word => {
-
-            let j = 0 
-
+        if(free){
             do{
-                board[i + j * sizeBoard + j] = word[j]
-                j++
-            }while(j <word.length);
-
-            i++
-        });
-
-        return board;*/
-
-        if(mainDiagonal){
-            let i = pos
-            let j = 0 
-    
-            do{
-                board[i + j * sizeBoard + j] = word[j]
+                board[i + j * sizeBoard] = word[j]
                 j++
             }while(j <word.length);
     
             return board;
         }else{
-            let i = pos
-            let j = 0 
-    
+            return free
+        }
+    }
+
+    putDiagonalWords(word, pos, mainDiagonal){
+        let free = true
+        let i = pos
+        let j = 0
+        
+        if(mainDiagonal){
+
             do{
-                board[i + j * sizeBoard - j] = word[j]
+                if(board[i + j * sizeBoard + j] !== '*'){
+                    free = false
+                } 
                 j++
             }while(j <word.length);
+
+            
+            j = 0
+
+            let limit
+
+            for(let i = 1; i < sizeBoard; i++){
+                
+                limit = i * sizeBoard 
+                
+                if(limit > pos){
+                    break
+                }
+            }
+
+            if(limit - pos < word.length){
+                free = false
+            }
+
+            if(free){
+                do{
+                    board[i + j * sizeBoard + j] = word[j]
+                    j++
+                }while(j <word.length);
+        
+                return board;
+            }else{
+                return free
+            }
+
+        }else{
+
+            if(pos < sizeBoard){
+                free = false
+            }
+
+            do{
+                if(board[i + j * sizeBoard - j] !== '*'){
+                    free = false
+                } 
+                j++
+            }while(j <word.length);
+
+            j = 0
+            
+            let limit
+
+            for(let i = 1; i < sizeBoard; i++){
+
+                if(i * sizeBoard > pos){
+                    break
+                }
+                
+                limit = i * sizeBoard 
     
-            return board;
+            }
+
+            if(pos + 1 - limit < word.length){
+                free = false
+            }
+
+            if(free){
+                do{
+                    board[i + j * sizeBoard - j] = word[j]
+                    j++
+                }while(j <word.length);
+        
+                return board;
+            }else{
+                return free
+            }
+
         }
     }
 
@@ -129,9 +177,7 @@ class GenerateSoup{
 
     generate(){
         this.initializateBoard()
-        this.putHorizontalWords("ELPO", 37)
-        this.putVerticalWords("ELPO", 25)
-        this.putDiagonalWords("ELPO", 10, false)
+        this.putDiagonalWords("ELPO", 104, true)
         return board;
     }
 
