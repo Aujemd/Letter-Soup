@@ -176,8 +176,48 @@ class GenerateSoup{
     }
 
     generate(){
+        const places = sizeBoard * sizeBoard
+
         this.initializateBoard()
-        this.putDiagonalWords("ELPO", 104, true)
+        
+        words.forEach(word => {
+
+            let type = Math.floor((Math.random() * 4) + 1)
+
+            switch(type){
+                case 1:{
+                    let go
+                    do{
+                        go = this.putHorizontalWords(word, Math.floor((Math.random() * places) + 1))
+                    }while(go == false)
+                    break
+                } 
+                case 2:{
+                    let go
+                    do{
+                        go = this.putVerticalWords(word, Math.floor((Math.random() * places) + 1))
+                    }while(go == false)
+                    break
+                }
+                case 3:{
+                    let go
+                    do{
+                        go = this.putDiagonalWords(word, Math.floor((Math.random() * places) + 1), true)
+                    }while(go == false)
+                    break
+                }
+                case 4:{
+                    let go
+                    do{
+                        go = this.putDiagonalWords(word, Math.floor((Math.random() * places) + 1), false)
+                    }while(go == false)
+                    break
+                }
+                default:
+                    break
+            }
+        });
+        
         return board;
     }
 
