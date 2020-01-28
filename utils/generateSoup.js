@@ -1,8 +1,45 @@
-const words = ['SAL', 'CARNE', 'POLLO', 'MANI', 'PAN', 'PEZ', 'ARROZ', 'UVA' , 'HARINA', 'PAPA', 'PERA', 'PASTA', 'MAIZ', 'DONA', 'LECHE', 'AJO']
-const board = [];
-const sizeBoard = 12;
-
 class GenerateSoup{
+
+    constructor(){
+        this.sizeBoard = 0
+        this.words = []
+        this.board = []
+        this.limitWords = 0
+    }
+
+    setLevel(level){
+        this.sizeBoard = 0
+        switch(level){
+            case 1:
+                this.sizeBoard = 7
+                this.limitWords = 6
+                break
+            case 2:
+                this.sizeBoard = 8
+                this.limitWords = 8
+                break
+            case 3:
+                this.sizeBoard = 9
+                this.limitWords = 10
+                break
+            case 4:
+                this.sizeBoard = 10
+                this.limitWords = 12
+                break
+            case 5:
+                this.sizeBoard = 11
+                this.limitWords = 14
+                break
+            case 6:
+                this.sizeBoard = 12
+                this.limitWords = 16
+                break
+            default:
+                break
+        }
+        this.words = ['SAL', 'CARNE', 'POLLO', 'MANI', 'PAN', 'PEZ', 'ARROZ', 'UVA' , 'HARINA', 'PAPA', 'PERA', 'PASTA', 'MAIZ', 'DONA', 'LECHE', 'AJO']
+        this.board = [] 
+    }
 
     putHorizontalWords(word, pos){
 
@@ -13,7 +50,7 @@ class GenerateSoup{
             let j = 0
 
             do{
-                if(board[i] !== '*' && board[i] !== word[j]){
+                if(this.board[i] !== '*' && this.board[i] !== word[j]){
                     free = false
                 }
                 
@@ -26,9 +63,9 @@ class GenerateSoup{
 
             let limit
 
-            for(let i = 1; i < sizeBoard; i++){
+            for(let i = 1; i < this.sizeBoard; i++){
                 
-                limit = i * sizeBoard 
+                limit = i * this.sizeBoard 
                 
                 if(limit > pos){
                     break
@@ -43,12 +80,12 @@ class GenerateSoup{
                 j = 0
 
                 do{
-                    board[i] = word[j]
+                    this.board[i] = word[j]
                     i++
                     j++
                 }while(j <word.length);
     
-                return board;
+                return this.board;
             }else{
                 return free
             }
@@ -61,8 +98,8 @@ class GenerateSoup{
         let free = true
 
         do{   
-            if(board[i + j * sizeBoard] !== '*' || i + j * sizeBoard > sizeBoard * sizeBoard){
-                if(board[i + j * sizeBoard] !== word[j]){
+            if(this.board[i + j * this.sizeBoard] !== '*' || i + j * this.sizeBoard > this.sizeBoard * this.sizeBoard){
+                if(this.board[i + j * this.sizeBoard] !== word[j]){
                     free = false
                 }
             }
@@ -73,11 +110,11 @@ class GenerateSoup{
 
         if(free){
             do{
-                board[i + j * sizeBoard] = word[j]
+                this.board[i + j * this.sizeBoard] = word[j]
                 j++
             }while(j <word.length);
     
-            return board;
+            return this.board;
         }else{
             return free
         }
@@ -91,7 +128,7 @@ class GenerateSoup{
         if(mainDiagonal){
 
             do{
-                if(board[i + j * sizeBoard + j] !== '*' && board[i + j * sizeBoard + j] !== word[j]){
+                if(this.board[i + j * this.sizeBoard + j] !== '*' && this.board[i + j * this.sizeBoard + j] !== word[j]){
                     free = false
                 } 
                 j++
@@ -102,9 +139,9 @@ class GenerateSoup{
 
             let limit
 
-            for(let i = 1; i < sizeBoard; i++){
+            for(let i = 1; i < this.sizeBoard; i++){
                 
-                limit = i * sizeBoard 
+                limit = i * this.sizeBoard 
                 
                 if(limit > pos){
                     break
@@ -117,23 +154,23 @@ class GenerateSoup{
 
             if(free){
                 do{
-                    board[i + j * sizeBoard + j] = word[j]
+                    this.board[i + j * this.sizeBoard + j] = word[j]
                     j++
                 }while(j <word.length);
         
-                return board;
+                return this.board;
             }else{
                 return free
             }
 
         }else{
 
-            if(pos < sizeBoard){
+            if(pos < this.sizeBoard){
                 free = false
             }
 
             do{
-                if(board[i + j * sizeBoard - j] !== '*' && board[i + j * sizeBoard - j] !== word[j]){
+                if(this.board[i + j * this.sizeBoard - j] !== '*' && this.board[i + j * this.sizeBoard - j] !== word[j]){
                     free = false
                 } 
                 j++
@@ -143,13 +180,13 @@ class GenerateSoup{
             
             let limit
 
-            for(let i = 1; i < sizeBoard; i++){
+            for(let i = 1; i < this.sizeBoard; i++){
 
-                if(i * sizeBoard > pos){
+                if(i * this.sizeBoard > pos){
                     break
                 }
                 
-                limit = i * sizeBoard 
+                limit = i * this.sizeBoard 
     
             }
 
@@ -159,11 +196,11 @@ class GenerateSoup{
 
             if(free){
                 do{
-                    board[i + j * sizeBoard - j] = word[j]
+                    this.board[i + j * this.sizeBoard - j] = word[j]
                     j++
                 }while(j <word.length);
         
-                return board;
+                return this.board;
             }else{
                 return free
             }
@@ -172,55 +209,54 @@ class GenerateSoup{
     }
 
     initializateBoard(){
-        for(let i = 0; i < sizeBoard * sizeBoard; i++ ){
-            board[i] = '*'
+        for(let i = 0; i < this.sizeBoard * this.sizeBoard; i++ ){
+            this.board[i] = '*'
         }
     }
 
     generate(){
-        const places = sizeBoard * sizeBoard
+        const places = this.sizeBoard * this.sizeBoard
 
         this.initializateBoard()
         
-        words.forEach(word => {
+            for (let i = 0; i < this.limitWords; i++) {
+                let type = Math.floor((Math.random() * 4) + 1)
 
-            let type = Math.floor((Math.random() * 4) + 1)
-
-            switch(type){
-                case 1:{
-                    let go
-                    do{
-                        go = this.putHorizontalWords(word, Math.floor((Math.random() * places) + 1))
-                    }while(go == false)
-                    break
+                switch(type){
+                    case 1:{
+                        let go
+                        do{
+                            go = this.putHorizontalWords(this.words[i], Math.floor((Math.random() * places) + 1))
+                        }while(go == false)
+                        break
+                    } 
+                    case 2:{
+                        let go
+                        do{
+                            go = this.putVerticalWords(this.words[i], Math.floor((Math.random() * places) + 1))
+                        }while(go == false)
+                        break
+                    }
+                    case 3:{
+                        let go
+                        do{
+                            go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), true)
+                        }while(go == false)
+                        break
+                    }
+                    case 4:{
+                        let go
+                        do{
+                            go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), false)
+                        }while(go == false)
+                        break
+                    }
+                    default:
+                        break
                 } 
-                case 2:{
-                    let go
-                    do{
-                        go = this.putVerticalWords(word, Math.floor((Math.random() * places) + 1))
-                    }while(go == false)
-                    break
-                }
-                case 3:{
-                    let go
-                    do{
-                        go = this.putDiagonalWords(word, Math.floor((Math.random() * places) + 1), true)
-                    }while(go == false)
-                    break
-                }
-                case 4:{
-                    let go
-                    do{
-                        go = this.putDiagonalWords(word, Math.floor((Math.random() * places) + 1), false)
-                    }while(go == false)
-                    break
-                }
-                default:
-                    break
             }
-        });
-        
-        return board;
+
+        return this.board;
     }
 
 

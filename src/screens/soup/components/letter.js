@@ -6,11 +6,11 @@ class Letter extends Component {
     letterStyle = level => {
 
         switch(level) {
-            case '1' :
+            case 1 :
                 return {
                     fontSize: 30,
                 }
-            case '2':
+            case 2 :
                 return{
                     fontSize: 25,
                 } 
@@ -23,27 +23,27 @@ class Letter extends Component {
 
     containerStyle = level => {
         switch(level) {
-            case '1' :
+            case 1 :
                 return {
                     width: 45,
                 }
-            case '2':
+            case 2 :
                 return{
                     width: 40,
                 }
-            case '3':
+            case 3 :
                 return{
                     width: 35,
                 }
-            case '4':
+            case 4 :
                 return{
                     width: 32,
                 }
-            case '5':
+            case 5 :
                 return{
                     width: 30,
                 }
-            case '6':
+            case 6 :
                 return{
                     width: 27,
                 }            

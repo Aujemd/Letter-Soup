@@ -3,11 +3,14 @@ import {View, StyleSheet} from 'react-native'
 import Letter from './letter'
 import GenerateSoup from '../../../../utils/generateSoup';
 
-const level = "6";
 class Board extends Component{
 
+    
+ 
 
     render(){
+        const level = 1
+        GenerateSoup.setLevel(level)
         return(
             <View style = {Styles.container}>
                 {GenerateSoup.generate().map((letra, key) => (<Letter level = {level}>{letra}</Letter>))}
