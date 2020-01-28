@@ -52,11 +52,10 @@ class Letter extends Component {
         }
     }
 
-    
     render() {
-        const {level, children} = this.props
+        const {level, children, onPress} = this.props
         return (
-            <TouchableOpacity style = {this.containerStyle(level)}>
+            <TouchableOpacity style = {this.containerStyle(level)} onPress = {onPress}>
                 <Text style = {this.letterStyle(level)}>{children}</Text>
             </TouchableOpacity>
         )

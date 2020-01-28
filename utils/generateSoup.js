@@ -7,6 +7,14 @@ class GenerateSoup{
         this.limitWords = 0
     }
 
+    getWords(){
+        return this.words
+    }
+
+    getLimit(){
+        return this.limitWords
+    }
+    
     setLevel(level){
         this.sizeBoard = 0
         switch(level){
