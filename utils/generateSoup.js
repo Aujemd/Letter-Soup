@@ -1,4 +1,4 @@
-const words = ['ARROZ', 'HUEVO', 'SAL', 'HARINA', 'PASTA', 'POLLO']
+const words = ['SAL', 'CARNE', 'POLLO', 'MANI', 'PAN', 'PEZ', 'ARROZ', 'UVA' , 'HARINA', 'PAPA', 'PERA', 'PASTA', 'MAIZ', 'DONA', 'LECHE', 'AJO']
 const board = [];
 const sizeBoard = 12;
 
@@ -13,7 +13,7 @@ class GenerateSoup{
             let j = 0
 
             do{
-                if(board[i] !== '*'){
+                if(board[i] !== '*' && board[i] !== word[j]){
                     free = false
                 }
                 
@@ -60,9 +60,11 @@ class GenerateSoup{
         let j = 0
         let free = true
 
-        do{
+        do{   
             if(board[i + j * sizeBoard] !== '*' || i + j * sizeBoard > sizeBoard * sizeBoard){
-                free = false
+                if(board[i + j * sizeBoard] !== word[j]){
+                    free = false
+                }
             }
             j++
         }while(j < word.length);
@@ -89,7 +91,7 @@ class GenerateSoup{
         if(mainDiagonal){
 
             do{
-                if(board[i + j * sizeBoard + j] !== '*'){
+                if(board[i + j * sizeBoard + j] !== '*' && board[i + j * sizeBoard + j] !== word[j]){
                     free = false
                 } 
                 j++
@@ -131,7 +133,7 @@ class GenerateSoup{
             }
 
             do{
-                if(board[i + j * sizeBoard - j] !== '*'){
+                if(board[i + j * sizeBoard - j] !== '*' && board[i + j * sizeBoard - j] !== word[j]){
                     free = false
                 } 
                 j++
