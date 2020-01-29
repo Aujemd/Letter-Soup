@@ -6,55 +6,65 @@ import GenerateSoup from '../../../../utils/generateSoup';
 class Board extends Component{
 
     constructor(props){
+        
         super(props)
+
+        const {level} = this.props
+
+        GenerateSoup.setLevel(level)
+
         this.state = {
             currentInput: '',
-            level : 6,
-            board: [],
-            words: [],
-            limitWords: 0,
-            founded: 0,
-        }
-
-    }
-    
-    componentDidUpdate(){
-        if(this.state.founded == this.state.limitWords){
-            console.log("GANASTE");
-        }
-    }
-    componentDidMount(){
-        GenerateSoup.setLevel(this.state.level)
-        this.setState({
             board: GenerateSoup.generate(),
             words: GenerateSoup.getWords(),
             limitWords: GenerateSoup.getLimit(),
-        })
+            win : GenerateSoup.getLimit(),
+            founded: 0,
+        }        
     }
     
-    pressHandle(letra){
-        this.setState(state => ({
-            currentInput: state.currentInput + letra
-        }), () => {
-            for (let i = 0; i < this.state.limitWords; i++) {
-                if(this.state.currentInput.includes(this.state.words[i])){
-                    console.log(`Encontraste ${this.state.words[i]}`);
-                    this.setState(state => ({
-                        words: state.words.filter( word => word !== this.state.words[i]),
-                        founded: state.founded += 1
-                    }), () => {
-                    })
-                    
-                }
-            }
+    componentDidUpdate(){
+        if(this.state.founded == this.state.win){
+            console.log("GANASTE");
+        }
+    }
 
-        })    
+    pressHandle(place){
+
+        const {letter, specialIn} = place
+
+        if(specialIn){
+            this.setState(state => ({
+                currentInput: state.currentInput + letter
+            }), () => {
+                console.log(this.state.currentInput);
+                for (let i = 0; i < this.state.limitWords; i++) {
+                    if(this.state.currentInput.includes(this.state.words[i])){
+                        console.log(`Encontraste ${this.state.words[i]}`);
+                        this.setState(state => ({
+                            words: state.words.filter( word => word !== this.state.words[i]),
+                            founded: state.founded += 1,
+                            limitWords: state.limitWords -= 1,
+                        }), () => {
+                            console.log(this.state.words); 
+                        })
+                        
+                    }
+                }
+    
+            })
+        }
+        
     }
 
     render(){
         return(
             <View style = {Styles.container}>
-                {this.state.board.map((letra, key) => (<Letter level = {this.state.level} onPress = {() => {this.pressHandle(letra)}}>{letra}</Letter>))}
+                {this.state.board.map((place, key) => (
+                    <Letter level = {this.props.level} onPress = {  () => {
+                        this.pressHandle(place)
+                    }
+                }>{place.letter}</Letter>))}
             </View>
         );
     }

@@ -8,8 +8,7 @@ class Soup extends Component {
     render(){
         return(
             <View style = {Styles.container}>
-                <WordsLabel words = {['SAL', 'CARNE', 'POLLO', 'MANI', 'PAN', 'PEZ', 'ARROZ', 'UVA' , 'HARINA', 'PAPA', 'PERA', 'PASTA', 'MAIZ', 'DONA', 'LECHE', 'AJO']}/>
-                <Board></Board>
+                <Board level = {1}></Board>
             </View>
         )
     }
