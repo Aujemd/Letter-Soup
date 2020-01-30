@@ -111,8 +111,6 @@ class Soup extends Component {
 
 const Styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#1B4F72',
         justifyContent: 'center',
         alignItems: 'center',
     }

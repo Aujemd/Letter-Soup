@@ -15,7 +15,6 @@ const Styles = StyleSheet.create({
         color : 'white',
         fontSize: 30,
         fontWeight: 'bold'
-        
     },
     container: {
         backgroundColor : '#00B9FF',
@@ -26,7 +25,6 @@ const Styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 25,
         margin: 10,
-
     },
 
 })
