@@ -10,7 +10,6 @@ class Board extends Component{
         super(props)
 
         const {level} = this.props
-
         GenerateSoup.setLevel(level)
 
         this.state = {
@@ -61,7 +60,7 @@ class Board extends Component{
         return(
             <View style = {Styles.container}>
                 {this.state.board.map((place, key) => (
-                    <Letter level = {this.props.level} onPress = {  () => {
+                    <Letter level = {level} onPress = {  () => {
                         this.pressHandle(place)
                     }
                 }>{place.letter}</Letter>))}
@@ -83,5 +82,7 @@ var Styles = StyleSheet.create({
         alignItems: 'center',
     }
 })
+
+
 
 export default Board; 
