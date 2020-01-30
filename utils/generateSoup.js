@@ -45,7 +45,10 @@ class GenerateSoup {
             default:
                 break
         }
-        this.words = ['SAL', 'CARNE', 'POLLO', 'MANI', 'PAN', 'PEZ', 'ARROZ', 'UVA', 'HARINA', 'PAPA', 'PERA', 'PASTA', 'MAIZ', 'DONA', 'LECHE', 'AJO']
+        //this.words = ['SAL', 'CARNE', 'POLLO', 'MANI', 'PAN', 'PEZ', 'ARROZ', 'UVA', 'HARINA', 'PAPA', 'PERA', 'PASTA', 'MAIZ', 'DONA', 'LECHE', 'AJO']
+        //this.words = ['VACA', 'SAPO', 'PUMA', 'CORAL', 'LEMUR', 'CABRA', 'PIOJO', 'RATON', 'BURRO', 'DINGO', 'MANATI', 'CIERVO', 'PANGOLIN', 'PEREZOSO', 'COMADREJA', 'LUCIERNAGA']
+        //this.words = ['GRIS', 'ROSA', 'AZUL', 'ROJO', 'VERDE', 'NEGRO', 'SEPIA', 'VERDE', 'MARRON', 'NARANJA', 'BLANCO', 'NEGRO', 'AGUAMARINA', 'BERMELLON', 'SEPIA', 'ARENA']
+        this.words = ['TAPA', 'VASO', 'BOLSA', 'MESA', 'POTE', 'PAPEL', 'CARRO', 'JARRA', 'PIZARRA', 'CARPETA' ,'CEPILLO', 'MARTILLO', 'TRASTO', 'CERRADURA', 'PLATO', 'TECHO']
         this.board = []
     }
 
@@ -285,40 +288,34 @@ class GenerateSoup {
 
 
         for (let i = 0; i < this.limitWords; i++) {
-            let type = Math.floor((Math.random() * 4) + 1)
+            let go
 
-            switch (type) {
-                case 1: {
-                    let go
-                    do {
-                        go = this.putHorizontalWords(this.words[i], Math.floor((Math.random() * places) + 1))
-                    } while (go == false)
-                    break
+            do{
+                let type = Math.floor((Math.random() * 4) + 1)
+            
+                switch (type) {
+                    case 1: {
+                            go = this.putHorizontalWords(this.words[i], Math.floor((Math.random() * places) + 1))
+                        break
+                    }
+                    case 2: {
+                            go = this.putVerticalWords(this.words[i], Math.floor((Math.random() * places) + 1))
+                        break
+                    }
+                    case 3: {
+                            go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), true)
+                        break
+                    }
+                    case 4: {
+                            go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), false)
+                        break
+                    }
+                    default:
+                        break
                 }
-                case 2: {
-                    let go
-                    do {
-                        go = this.putVerticalWords(this.words[i], Math.floor((Math.random() * places) + 1))
-                    } while (go == false)
-                    break
-                }
-                case 3: {
-                    let go
-                    do {
-                        go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), true)
-                    } while (go == false)
-                    break
-                }
-                case 4: {
-                    let go
-                    do {
-                        go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), false)
-                    } while (go == false)
-                    break
-                }
-                default:
-                    break
-            }
+                
+                
+            }while(go == false)
 
         }
 

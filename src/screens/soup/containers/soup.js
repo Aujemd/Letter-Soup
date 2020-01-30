@@ -34,7 +34,10 @@ class Soup extends Component {
             words: GenerateSoup.getWords(),
             limitWords: GenerateSoup.getLimit(),
             win: GenerateSoup.getLimit(),
-        }));
+        }), () => {
+            console.log("Cambiando de nivel ...");
+            
+        });
 
         this.props.dispatch({
             type: 'SET_LEVEL',
@@ -43,6 +46,7 @@ class Soup extends Component {
             }
         })
     }
+
     componentDidUpdate() {
         if (this.state.founded == this.state.win) {
             this.setState(state => ({
@@ -50,7 +54,6 @@ class Soup extends Component {
             }));
             this.nextLevel()
             console.log("Ganaste ! :)");
-
         }
     }
 

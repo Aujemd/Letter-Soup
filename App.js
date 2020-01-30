@@ -4,6 +4,7 @@ import Categories from './src/screens/categories/containers/categories'
 import {Provider} from 'react-redux'
 import store from './store'
 import {View, StyleSheet} from 'react-native';
+import Home from './src/screens/home/containers/home'
 
 class App extends Component{
 
@@ -28,7 +29,7 @@ class App extends Component{
       }
       >
       <View style = {Styles.container}>
-        <Categories/>
+        <Home></Home>
       </View>
       </Provider>
     ) 
