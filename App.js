@@ -4,7 +4,7 @@ import {store, persistor} from './store'
 import AppLayout from './src/app'
 import {View, StyleSheet} from 'react-native'
 import {PersistGate} from 'redux-persist/integration/react'
-import {Text} from 'react-native'
+import Loading from './src/loading'
 
 class App extends Component{
 
@@ -16,7 +16,7 @@ class App extends Component{
       }
       >
       <PersistGate
-        loading = {<Text>Cargando ....</Text>}
+        loading = {<Loading/>}
         persistor = {persistor}
       >
           <View style = {Styles.container}>

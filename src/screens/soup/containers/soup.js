@@ -4,6 +4,7 @@ import Board from '../components/board'
 import LevelLabel from '../components/levelLabel'
 import Letter from '../components/letter'
 import { connect } from 'react-redux'
+import NewGameButton from '../components/newGame'
 
 import GenerateSoup from '../../../../utils/generateSoup'
 
@@ -90,39 +91,42 @@ class Soup extends Component {
         const { level, user } = this.props
         const { board, founded } = this.state
         return (
-            <View style={Styles.container}>
-                <Text style = {{ color:'white'}}>🙋‍♂️ {user}</Text>
-                <View style={Styles.labelsContainer}>
-                    <TouchableOpacity
-                        style={Styles.buttom}
-                    >
-                        <Text style={Styles.buttomLetter}>👀</Text>
-                    </TouchableOpacity>
-                    <LevelLabel level={level}></LevelLabel>
-                    <TouchableOpacity
-                        style={Styles.buttom}
-                    >
-                        <Text style={Styles.buttomLetter}>✨</Text>
-                    </TouchableOpacity>
-                    <Text style={{ color: 'white', marginHorizontal: 10 }}>Ver Pistas</Text>
-                    <Text style={{ color: 'white', marginHorizontal: 10 }}>Palabras Encontradas = {founded}</Text>
-                    <Text style={{ color: 'white', marginHorizontal: 10 }}>Comodin</Text>
+                <>
+                <NewGameButton/>
+                <View style={Styles.container}>
+                    <Text style = {{ color:'white'}}>🙋‍♂️ {user}</Text>
+                    <View style={Styles.labelsContainer}>
+                        <TouchableOpacity
+                            style={Styles.buttom}
+                        >
+                            <Text style={Styles.buttomLetter}>👀</Text>
+                        </TouchableOpacity>
+                        <LevelLabel level={level}></LevelLabel>
+                        <TouchableOpacity
+                            style={Styles.buttom}
+                        >
+                            <Text style={Styles.buttomLetter}>✨</Text>
+                        </TouchableOpacity>
+                        <Text style={{ color: 'white', marginHorizontal: 10 }}>Ver Pistas</Text>
+                        <Text style={{ color: 'white', marginHorizontal: 10 }}>Palabras Encontradas = {founded}</Text>
+                        <Text style={{ color: 'white', marginHorizontal: 10 }}>Comodin</Text>
+                    </View>
+                    <Board>
+                        {
+                            board.map((place, key) => (
+                                <Letter
+                                    level={level}
+                                    onPress={() => {
+                                        this.pressHandle(place)
+                                    }}>
+                                    {place.letter}
+                                </Letter>
+                            )
+                            )
+                        }
+                    </Board>
                 </View>
-                <Board>
-                    {
-                        board.map((place, key) => (
-                            <Letter
-                                level={level}
-                                onPress={() => {
-                                    this.pressHandle(place)
-                                }}>
-                                {place.letter}
-                            </Letter>
-                        )
-                        )
-                    }
-                </Board>
-            </View>
+                </>
         )
     }
 

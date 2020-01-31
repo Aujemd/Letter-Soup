@@ -17,6 +17,9 @@ function soup(state = {}, action){
             return{...state, user: action.payload.user
             }
         }
+        case 'SET_NEW_GAME':{
+            return {...state, ...action.payload}
+        }
         default:
             return state;
     }
