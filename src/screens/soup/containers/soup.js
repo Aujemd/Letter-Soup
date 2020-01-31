@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import Board from '../components/board'
 import LevelLabel from '../components/levelLabel'
 import Letter from '../components/letter'
@@ -27,7 +27,7 @@ class Soup extends Component {
 
     nextLevel() {
         const level = this.props.level + 1
-        GenerateSoup.setLevel(level , this.props.category)
+        GenerateSoup.setLevel(level, this.props.category)
         this.setState(state => ({
             currentInput: '',
             board: GenerateSoup.generate(),
@@ -36,7 +36,7 @@ class Soup extends Component {
             win: GenerateSoup.getLimit(),
         }), () => {
             console.log("Cambiando de nivel ...");
-            
+
         });
 
         this.props.dispatch({
@@ -87,11 +87,27 @@ class Soup extends Component {
 
 
     render() {
-        const { level } = this.props
-        const { board } = this.state
+        const { level, user } = this.props
+        const { board, founded } = this.state
         return (
             <View style={Styles.container}>
-                <LevelLabel level={level}></LevelLabel>
+                <Text style = {{ color:'white'}}>🙋‍♂️ {user}</Text>
+                <View style={Styles.labelsContainer}>
+                    <TouchableOpacity
+                        style={Styles.buttom}
+                    >
+                        <Text style={Styles.buttomLetter}>👀</Text>
+                    </TouchableOpacity>
+                    <LevelLabel level={level}></LevelLabel>
+                    <TouchableOpacity
+                        style={Styles.buttom}
+                    >
+                        <Text style={Styles.buttomLetter}>✨</Text>
+                    </TouchableOpacity>
+                    <Text style={{ color: 'white', marginHorizontal: 10 }}>Ver Pistas</Text>
+                    <Text style={{ color: 'white', marginHorizontal: 10 }}>Palabras Encontradas = {founded}</Text>
+                    <Text style={{ color: 'white', marginHorizontal: 10 }}>Comodin</Text>
+                </View>
                 <Board>
                     {
                         board.map((place, key) => (
@@ -116,13 +132,31 @@ const Styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    labelsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+    },
+    buttom: {
+        backgroundColor: '#00B9FF',
+        width: 33,
+        height: 33,
+        borderRadius: 33 / 2,
+
+    },
+    buttomLetter: {
+        fontSize: 25,
     }
 })
 
 function mapStateToProps(state) {
     return {
         level: state.level,
-        category: state.category
+        category: state.category,
+        user: state.user,
     }
 }
 

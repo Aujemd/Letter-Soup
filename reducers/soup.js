@@ -13,6 +13,10 @@ function soup(state = {}, action){
                 inGame: action.payload.inGame,
             }
         }
+        case 'SET_USER':{
+            return{...state, user: action.payload.user
+            }
+        }
         default:
             return state;
     }

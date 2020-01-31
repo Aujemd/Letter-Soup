@@ -4,6 +4,7 @@ import reducer from './reducers/soup'
 
 const store = createStore(reducer, {
     level: 1,
+    user: '',
 });
 
 export default store;
