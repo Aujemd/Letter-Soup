@@ -12,8 +12,8 @@ class Soup extends Component {
 
     constructor(props) {
         super(props)
-        const { level } = this.props
-        GenerateSoup.setLevel(level)
+        const { level, category } = this.props
+        GenerateSoup.setLevel(level, category)
 
         this.state = {
             currentInput: '',
@@ -27,7 +27,7 @@ class Soup extends Component {
 
     nextLevel() {
         const level = this.props.level + 1
-        GenerateSoup.setLevel(level)
+        GenerateSoup.setLevel(level , this.props.category)
         this.setState(state => ({
             currentInput: '',
             board: GenerateSoup.generate(),
@@ -121,7 +121,8 @@ const Styles = StyleSheet.create({
 
 function mapStateToProps(state) {
     return {
-        level: state.level
+        level: state.level,
+        category: state.category
     }
 }
 

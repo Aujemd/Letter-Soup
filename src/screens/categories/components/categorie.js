@@ -3,13 +3,13 @@ import{Text, TouchableOpacity, StyleSheet, View} from 'react-native';
 
 const Categorie = props => {
 
-    const {contain, icon, style} = props
+    const {contain, icon, style , onPress} = props
     const {container} = Styles
 
     const currentStyle = StyleSheet.flatten([container, style])
 
     return (
-        <TouchableOpacity style = {currentStyle}>
+        <TouchableOpacity style = {currentStyle} onPress={onPress}>
             <Text style = {Styles.icon}>{icon}</Text>
             <Text style = {Styles.text}>{contain}</Text>
         </TouchableOpacity>

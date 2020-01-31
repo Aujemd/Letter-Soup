@@ -15,7 +15,7 @@ class GenerateSoup {
         return this.limitWords
     }
 
-    setLevel(level) {
+    setLevel(level, category) {
         this.sizeBoard = 0
         switch (level) {
             case 1:
@@ -45,11 +45,20 @@ class GenerateSoup {
             default:
                 break
         }
-        //this.words = ['SAL', 'CARNE', 'POLLO', 'MANI', 'PAN', 'PEZ', 'ARROZ', 'UVA', 'HARINA', 'PAPA', 'PERA', 'PASTA', 'MAIZ', 'DONA', 'LECHE', 'AJO']
-        //this.words = ['VACA', 'SAPO', 'PUMA', 'CORAL', 'LEMUR', 'CABRA', 'PIOJO', 'RATON', 'BURRO', 'DINGO', 'MANATI', 'CIERVO', 'PANGOLIN', 'PEREZOSO', 'COMADREJA', 'LUCIERNAGA']
-        //this.words = ['GRIS', 'ROSA', 'AZUL', 'ROJO', 'VERDE', 'NEGRO', 'SEPIA', 'VERDE', 'MARRON', 'NARANJA', 'BLANCO', 'NEGRO', 'AGUAMARINA', 'BERMELLON', 'SEPIA', 'ARENA']
-        this.words = ['TAPA', 'VASO', 'BOLSA', 'MESA', 'POTE', 'PAPEL', 'CARRO', 'JARRA', 'PIZARRA', 'CARPETA' ,'CEPILLO', 'MARTILLO', 'TRASTO', 'CERRADURA', 'PLATO', 'TECHO']
-        this.board = []
+        switch(category){
+            case 1:
+                this.words = ['SAL', 'CARNE', 'POLLO', 'MANI', 'PAN', 'PEZ', 'ARROZ', 'UVA', 'HARINA', 'PAPA', 'PERA', 'PASTA', 'MAIZ', 'DONA', 'LECHE', 'AJO']
+                break
+            case 2:
+                this.words = ['GRIS', 'ROSA', 'AZUL', 'ROJO', 'VERDE', 'NEGRO', 'SEPIA', 'VERDE', 'MARRON', 'NARANJA', 'BLANCO', 'NEGRO', 'AGUAMARINA', 'BERMELLON', 'SEPIA', 'ARENA']
+                break
+            case 3:
+                this.words = ['VACA', 'SAPO', 'PUMA', 'CORAL', 'LEMUR', 'CABRA', 'PIOJO', 'RATON', 'BURRO', 'DINGO', 'MANATI', 'CIERVO', 'PANGOLIN', 'PEREZOSO', 'COMADREJA', 'LUCIERNAGA']
+                break
+            case 4:
+                this.words = ['TAPA', 'VASO', 'BOLSA', 'MESA', 'POTE', 'PAPEL', 'CARRO', 'JARRA', 'PIZARRA', 'CARPETA' ,'CEPILLO', 'MARTILLO', 'TRASTO', 'CERRADURA', 'PLATO', 'TECHO']
+                break
+        }
     }
 
     putHorizontalWords(word, pos) {

@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
-import Soup from './src/screens/soup/containers/soup';
-import Categories from './src/screens/categories/containers/categories'
 import {Provider} from 'react-redux'
 import store from './store'
-import {View, StyleSheet} from 'react-native';
-import Home from './src/screens/home/containers/home'
+import AppLayout from './src/app'
+import {View, StyleSheet} from 'react-native'
 
 class App extends Component{
-
-  componentDidMount(){
-    
-    const level = 1
-    
-    store.dispatch({
-      type: 'SET_LEVEL',
-      payload:{
-        level,
-      }
-    })
-    
-  }
 
   render(){
     return (
@@ -28,9 +13,9 @@ class App extends Component{
         store
       }
       >
-      <View style = {Styles.container}>
-        <Home></Home>
-      </View>
+        <View style = {Styles.container}>
+          <AppLayout/>
+        </View>
       </Provider>
     ) 
   }

@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import {View, Text , StyleSheet} from 'react-native'
 import Categorie from '../components/categorie';
+import {connect} from 'react-redux'
 
 class Categories extends Component{
+
+    setCategory = id => {
+        this.props.dispatch({
+            type: 'SET_CATEGORY',
+            payload: {
+                category: id,
+                inSelectionCategories: false,
+                inGame: true,
+            }
+        })
+    }
     render(){
         return(
             <View style = {Styles.container}>
@@ -14,27 +26,39 @@ class Categories extends Component{
                     icon = {<Text>🍔</Text>}
                     style = {{
                         backgroundColor: "#FFDE5A",
+                    }}
+                    onPress = { () => {
+                        this.setCategory(1)
                     }} 
                 />
                 <Categorie 
                     contain = {<Text>Colores</Text>}
-                    icon = {<Text>🖍</Text>}
+                    icon = {<Text>🎨</Text>}
                     style = {{
                         backgroundColor: "#FF7F5A",
+                    }}
+                    onPress = { () => {
+                        this.setCategory(2)
                     }} 
                 />
                 <Categorie 
                     contain = {<Text>Animales</Text>}
-                    icon = {<Text>🐎</Text>}
+                    icon = {<Text>🙈</Text>}
                     style = {{
                         backgroundColor: "#1FE9C3",
+                    }}
+                    onPress = { () => {
+                        this.setCategory(3)
                     }} 
                 />
                 <Categorie 
-                    contain = {<Text>Vehiculos</Text>}
-                    icon = {<Text>🚲</Text>}
+                    contain = {<Text>Objetos</Text>}
+                    icon = {<Text>🏹</Text>}
                     style = {{
                         backgroundColor: "#D098FB",
+                    }}
+                    onPress = { () => {
+                        this.setCategory(4)
                     }} 
                 />                                               
             </View>
@@ -67,4 +91,4 @@ const Styles = StyleSheet.create({
         flexDirection: 'row',
     }
 });
-export default Categories
+export default connect(null)(Categories)
