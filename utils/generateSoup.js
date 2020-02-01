@@ -15,6 +15,10 @@ class GenerateSoup {
         return this.limitWords
     }
 
+    getSize(){
+        return this.sizeBoard
+    }
+
     setLevel(level, category) {
         this.sizeBoard = 0
         switch (level) {

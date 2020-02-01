@@ -13,46 +13,43 @@ class Soup extends Component {
 
     constructor(props) {
         super(props)
-        const { level, category } = this.props
-        GenerateSoup.setLevel(level, category)
-
         this.state = {
             currentInput: '',
-            board: GenerateSoup.generate(),
-            words: GenerateSoup.getWords(),
-            limitWords: GenerateSoup.getLimit(),
-            win: GenerateSoup.getLimit(),
-            founded: 0,
         }
     }
+
 
     nextLevel() {
         const level = this.props.level + 1
         GenerateSoup.setLevel(level, this.props.category)
         this.setState(state => ({
             currentInput: '',
-            board: GenerateSoup.generate(),
-            words: GenerateSoup.getWords(),
-            limitWords: GenerateSoup.getLimit(),
-            win: GenerateSoup.getLimit(),
         }), () => {
             console.log("Cambiando de nivel ...");
-
         });
 
         this.props.dispatch({
             type: 'SET_LEVEL',
             payload: {
                 level: this.props.level + 1,
+                board: GenerateSoup.generate(),
+                words: GenerateSoup.getWords(),
+                limitWords: GenerateSoup.getLimit(),
+                win: GenerateSoup.getLimit(),
             }
         })
     }
 
     componentDidUpdate() {
-        if (this.state.founded == this.state.win) {
-            this.setState(state => ({
-                founded: 0,
-            }));
+        const { founded, win } = this.props
+        if (founded == win) {
+            this.props.dispatch({
+                type: 'SET_LEVEL',
+                payload: {
+                    founded: 0,
+                }
+            })
+
             this.nextLevel()
             console.log("Ganaste ! :)");
         }
@@ -61,23 +58,37 @@ class Soup extends Component {
     pressHandle(place) {
 
         const { letter, specialIn } = place
+        const { limitWords, words, founded} = this.props
 
+        console.log(`current words ${words}`);
+        
         if (specialIn) {
             this.setState(state => ({
                 currentInput: state.currentInput + letter
             }), () => {
                 console.log(this.state.currentInput);
-                for (let i = 0; i < this.state.limitWords; i++) {
-                    if (this.state.currentInput.includes(this.state.words[i])) {
-                        console.log(`Encontraste ${this.state.words[i]}`);
-                        this.setState(state => ({
-                            words: state.words.filter(word => word !== this.state.words[i]),
-                            founded: state.founded += 1,
-                            limitWords: state.limitWords -= 1,
-                        }), () => {
-                            console.log(this.state.words);
-                        })
+                for (let i = 0; i < limitWords; i++) {
+                    if (this.state.currentInput.includes(words[i])) {
+                        console.log(`Encontraste ${words[i]}`);
 
+                        let newWords = words.filter(word => word !== words[i])
+                        let newFounded = founded
+                        let newLimitWords = limitWords
+                        
+                        console.log(newWords)
+                        
+                        newFounded = newFounded + 1
+                        newLimitWords = newLimitWords - 1
+
+
+                        this.props.dispatch({
+                            type: 'PUT_WORD',
+                            payload: {
+                                words: newWords,
+                                founded: newFounded,
+                                limitWords: newLimitWords,
+                            }
+                        })
                     }
                 }
 
@@ -88,13 +99,12 @@ class Soup extends Component {
 
 
     render() {
-        const { level, user } = this.props
-        const { board, founded } = this.state
+        const { level, user, board, founded } = this.props
         return (
-                <>
-                <NewGameButton/>
+            <>
+                <NewGameButton />
                 <View style={Styles.container}>
-                    <Text style = {{ color:'white'}}>🙋‍♂️ {user}</Text>
+                    <Text style={{ color: 'white' }}>🙋‍♂️ {user}</Text>
                     <View style={Styles.labelsContainer}>
                         <TouchableOpacity
                             style={Styles.buttom}
@@ -126,7 +136,7 @@ class Soup extends Component {
                         }
                     </Board>
                 </View>
-                </>
+            </>
         )
     }
 
@@ -161,6 +171,11 @@ function mapStateToProps(state) {
         level: state.level,
         category: state.category,
         user: state.user,
+        board: state.board,
+        limitWords: state.limitWords,
+        win: state.win,
+        founded: state.founded,
+        words: state.words,
     }
 }
 

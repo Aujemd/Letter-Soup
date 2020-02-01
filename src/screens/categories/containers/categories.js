@@ -2,16 +2,31 @@ import React, { Component } from 'react';
 import {View, Text , StyleSheet} from 'react-native'
 import Categorie from '../components/categorie';
 import {connect} from 'react-redux'
+import GenerateSoup from '../../../../utils/generateSoup'
 
 class Categories extends Component{
 
+    
     setCategory = id => {
+
+        GenerateSoup.setLevel(1, id)
+        const board = GenerateSoup.generate()
+        const words = GenerateSoup.getWords()
+        const limitWords = GenerateSoup.getLimit()
+        const win = GenerateSoup.getLimit()
+        const founded = 0
+
         this.props.dispatch({
             type: 'SET_CATEGORY',
             payload: {
                 category: id,
                 inSelectionCategories: false,
                 inGame: true,
+                board: board,
+                limitWords: limitWords,
+                win: win,
+                founded: founded,
+                words: words,
             }
         })
     }
