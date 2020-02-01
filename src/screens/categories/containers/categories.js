@@ -9,12 +9,13 @@ class Categories extends Component{
     
     setCategory = id => {
 
-        GenerateSoup.setLevel(1, id)
-        const board = GenerateSoup.generate()
-        const words = GenerateSoup.getWords()
-        const limitWords = GenerateSoup.getLimit()
-        const win = GenerateSoup.getLimit()
-        const founded = 0
+        let newLevel = 1
+        GenerateSoup.setLevel(newLevel, id)
+        let newBoard = GenerateSoup.generate()
+        let newWords = GenerateSoup.getWords()
+        let newLimitWords = GenerateSoup.getLimit()
+        let newWin = GenerateSoup.getLimit()
+        let newFounded = 0
 
         this.props.dispatch({
             type: 'SET_CATEGORY',
@@ -22,11 +23,12 @@ class Categories extends Component{
                 category: id,
                 inSelectionCategories: false,
                 inGame: true,
-                board: board,
-                limitWords: limitWords,
-                win: win,
-                founded: founded,
-                words: words,
+                board: newBoard,
+                limitWords: newLimitWords,
+                win: newWin,
+                founded: newFounded,
+                words: newWords,
+                level: newLevel,
             }
         })
     }

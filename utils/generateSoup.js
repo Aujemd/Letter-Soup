@@ -20,6 +20,7 @@ class GenerateSoup {
     }
 
     setLevel(level, category) {
+        this.board = []
         this.sizeBoard = 0
         switch (level) {
             case 1:
@@ -115,6 +116,7 @@ class GenerateSoup {
                 this.board[i] = {
                     letter: word[j],
                     specialIn: true,
+                    status: 0,
                 }
                 i++
                 j++
@@ -159,6 +161,7 @@ class GenerateSoup {
                 this.board[i + j * this.sizeBoard] = {
                     letter: word[j],
                     specialIn: true,
+                    status: 0,
                 }
 
                 j++
@@ -216,7 +219,7 @@ class GenerateSoup {
                     this.board[i + j * this.sizeBoard + j] = {
                         letter: word[j],
                         specialIn: true,
-
+                        status: 0,
                     }
                     j++
                 } while (j < word.length);
@@ -270,6 +273,7 @@ class GenerateSoup {
                     this.board[i + j * this.sizeBoard - j] = {
                         letter: word[j],
                         specialIn: true,
+                        status: 0,
                     }
                     j++
                 } while (j < word.length);
@@ -288,6 +292,7 @@ class GenerateSoup {
             this.board[i] = {
                 letter: '*',
                 specialIn: false,
+                status: 0,
             }
         }
 

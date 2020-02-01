@@ -9,8 +9,6 @@ class NewGame extends Component{
             type: 'SET_NEW_GAME',
             payload:{
                 inGame: false,
-                category: null,
-                level: 1,
             }
         })
     }

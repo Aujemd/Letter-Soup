@@ -24,10 +24,8 @@ class Soup extends Component {
         GenerateSoup.setLevel(level, this.props.category)
         this.setState(state => ({
             currentInput: '',
-        }), () => {
-            console.log("Cambiando de nivel ...");
-        });
-
+        }));
+        
         this.props.dispatch({
             type: 'SET_LEVEL',
             payload: {
@@ -36,6 +34,7 @@ class Soup extends Component {
                 words: GenerateSoup.getWords(),
                 limitWords: GenerateSoup.getLimit(),
                 win: GenerateSoup.getLimit(),
+                founded: 0,
             }
         })
     }
@@ -43,25 +42,14 @@ class Soup extends Component {
     componentDidUpdate() {
         const { founded, win } = this.props
         if (founded == win) {
-            this.props.dispatch({
-                type: 'SET_LEVEL',
-                payload: {
-                    founded: 0,
-                }
-            })
-
             this.nextLevel()
-            console.log("Ganaste ! :)");
         }
     }
 
-    pressHandle(place) {
-
+    pressHandle(place, id) {
         const { letter, specialIn } = place
         const { limitWords, words, founded} = this.props
-
-        console.log(`current words ${words}`);
-        
+          
         if (specialIn) {
             this.setState(state => ({
                 currentInput: state.currentInput + letter
@@ -127,7 +115,7 @@ class Soup extends Component {
                                 <Letter
                                     level={level}
                                     onPress={() => {
-                                        this.pressHandle(place)
+                                        this.pressHandle(place ,key)
                                     }}>
                                     {place.letter}
                                 </Letter>
