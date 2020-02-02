@@ -1,24 +1,24 @@
 import React from 'react'
-import{Text, TouchableOpacity, StyleSheet, View} from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 
 const Categorie = props => {
 
-    const {contain, icon, style , onPress} = props
-    const {container} = Styles
+    const { contain, icon, style, onPress } = props
+    const { container } = Styles
 
     const currentStyle = StyleSheet.flatten([container, style])
 
     return (
-        <TouchableOpacity style = {currentStyle} onPress={onPress}>
-            <Text style = {Styles.icon}>{icon}</Text>
-            <Text style = {Styles.text}>{contain}</Text>
+        <TouchableOpacity style={currentStyle} onPress={onPress}>
+            <Text style={Styles.icon}>{icon}</Text>
+            <Text style={Styles.text}>{contain}</Text>
         </TouchableOpacity>
     )
 }
 
 const Styles = StyleSheet.create({
-    container : {
-        backgroundColor : '#00B9FF',
+    container: {
+        backgroundColor: '#00B9FF',
         width: 250,
         display: 'flex',
         flexDirection: 'row',
@@ -34,8 +34,8 @@ const Styles = StyleSheet.create({
         backgroundColor: 'white',
         width: 55,
         height: 55,
-        borderRadius: 55/2,
-        marginRight: 10,     
+        borderRadius: 55 / 2,
+        marginRight: 10,
     },
     text: {
         color: 'white',

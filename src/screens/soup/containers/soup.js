@@ -20,23 +20,36 @@ class Soup extends Component {
 
 
     nextLevel() {
-        const level = this.props.level + 1
-        GenerateSoup.setLevel(level, this.props.category)
-        this.setState(state => ({
-            currentInput: '',
-        }));
-        
-        this.props.dispatch({
-            type: 'SET_LEVEL',
-            payload: {
-                level: this.props.level + 1,
-                board: GenerateSoup.generate(),
-                words: GenerateSoup.getWords(),
-                limitWords: GenerateSoup.getLimit(),
-                win: GenerateSoup.getLimit(),
-                founded: 0,
-            }
-        })
+
+        if (this.props.level !== this.props.finalLevel) {
+            const level = this.props.level + 1
+
+            GenerateSoup.setLevel(level, this.props.category)
+            this.setState(state => ({
+                currentInput: '',
+            }));
+
+            this.props.dispatch({
+                type: 'SET_LEVEL',
+                payload: {
+                    level: this.props.level + 1,
+                    board: GenerateSoup.generate(),
+                    words: GenerateSoup.getWords(),
+                    limitWords: GenerateSoup.getLimit(),
+                    win: GenerateSoup.getLimit(),
+                    founded: 0,
+                    joker: false,
+                }
+            })
+        } else {
+            this.props.dispatch({
+                type: 'SET_LEVEL',
+                payload: {
+                    level: this.props.level,
+                    inGame: false,
+                }
+            })
+        }
     }
 
     componentDidUpdate() {
@@ -48,23 +61,22 @@ class Soup extends Component {
 
     pressHandle(place, id) {
         const { letter, specialIn } = place
-        const { limitWords, words, founded} = this.props
-          
+        const { limitWords, words, founded } = this.props
+
         if (specialIn) {
             this.setState(state => ({
                 currentInput: state.currentInput + letter
             }), () => {
                 console.log(this.state.currentInput);
-                for (let i = 0; i < limitWords; i++) {
+                let found = false
+                for (let i = 0; i < limitWords && found === false; i++) {
                     if (this.state.currentInput.includes(words[i])) {
-                        console.log(`Encontraste ${words[i]}`);
+                        found = true
 
                         let newWords = words.filter(word => word !== words[i])
                         let newFounded = founded
                         let newLimitWords = limitWords
-                        
-                        console.log(newWords)
-                        
+
                         newFounded = newFounded + 1
                         newLimitWords = newLimitWords - 1
 
@@ -77,37 +89,59 @@ class Soup extends Component {
                                 limitWords: newLimitWords,
                             }
                         })
+
+                        this.setState(state => ({
+                            currentInput: '',
+                        }));
                     }
                 }
 
             })
         }
-
     }
 
-
+    showJokers() {
+        this.props.dispatch({
+            type: 'SET_LEVEL',
+            payload: {
+                joker: !this.props.joker,
+            }
+        })
+    }
     render() {
-        const { level, user, board, founded } = this.props
+        const { level, user, board, founded, words, limitWords, joker } = this.props
         return (
             <>
+                {
+                    joker && <View style={Styles.jokerContainer}>
+                        <Text style={{ color: 'white', marginBottom: 5, marginHorizontal: 40 }}>Primeras Letras de las palabras en la sopa {joker}</Text>
+
+                        {
+                            words.map((word, key) => {
+                                if (key < limitWords) {
+                                    return (
+                                        <Text style={Styles.jokerLetter}>{word[0]}</Text>
+                                    )
+                                }
+                            })
+                        }
+                    </View>
+                }
+
                 <NewGameButton />
                 <View style={Styles.container}>
                     <Text style={{ color: 'white' }}>🙋‍♂️ {user}</Text>
                     <View style={Styles.labelsContainer}>
                         <TouchableOpacity
                             style={Styles.buttom}
-                        >
+                            onPress={() => {
+                                this.showJokers()
+                            }}>
                             <Text style={Styles.buttomLetter}>👀</Text>
                         </TouchableOpacity>
                         <LevelLabel level={level}></LevelLabel>
-                        <TouchableOpacity
-                            style={Styles.buttom}
-                        >
-                            <Text style={Styles.buttomLetter}>✨</Text>
-                        </TouchableOpacity>
                         <Text style={{ color: 'white', marginHorizontal: 10 }}>Ver Pistas</Text>
-                        <Text style={{ color: 'white', marginHorizontal: 10 }}>Palabras Encontradas = {founded}</Text>
-                        <Text style={{ color: 'white', marginHorizontal: 10 }}>Comodin</Text>
+                        <Text style={{ color: 'white', marginHorizontal: 30 }}>Palabras Encontradas = {founded}</Text>
                     </View>
                     <Board>
                         {
@@ -115,7 +149,7 @@ class Soup extends Component {
                                 <Letter
                                     level={level}
                                     onPress={() => {
-                                        this.pressHandle(place ,key)
+                                        this.pressHandle(place, key)
                                     }}>
                                     {place.letter}
                                 </Letter>
@@ -147,11 +181,24 @@ const Styles = StyleSheet.create({
         width: 33,
         height: 33,
         borderRadius: 33 / 2,
+        marginHorizontal: 20,
+
 
     },
     buttomLetter: {
         fontSize: 25,
+    },
+    jokerContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+    },
+    jokerLetter: {
+        color: 'white',
+        marginHorizontal: 5,
     }
+
 })
 
 function mapStateToProps(state) {
@@ -164,6 +211,8 @@ function mapStateToProps(state) {
         win: state.win,
         founded: state.founded,
         words: state.words,
+        finalLevel: state.finalLevel,
+        joker: state.joker,
     }
 }
 

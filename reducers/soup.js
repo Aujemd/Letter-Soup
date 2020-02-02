@@ -18,6 +18,7 @@ function soup(state = {}, action){
                 founded: action.payload.founded,
                 words: action.payload.words,
                 level: action.payload.level,
+                joker: action.payload.joker,
             }
         }
         case 'PUT_WORD':{

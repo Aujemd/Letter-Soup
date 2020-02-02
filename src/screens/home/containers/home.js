@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 class Home extends Component {
 
@@ -13,20 +13,32 @@ class Home extends Component {
         })
     }
 
+    inInstructions = () => {
+        this.props.dispatch({
+            type: 'SET_LEVEL',
+            payload: {
+                inInstructions: true,
+            }
+        })
+    }
+
     render() {
         return (
             <View>
                 <View style={Styles.mainTitleContainer}>
                     <Text style={Styles.mainTitle}>LettersSoup 🍲</Text>
                 </View>
-                <TouchableOpacity style={Styles.optionItem} 
-                    onPress = { () => {
+                <TouchableOpacity style={Styles.optionItem}
+                    onPress={() => {
                         this.inSelectionCategory()
                     }}
                 >
                     <Text style={Styles.mainTitle}>▶ Jugar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={Styles.optionItem}>
+                <TouchableOpacity style={Styles.optionItem}
+                    onPress={() => {
+                        this.inInstructions()
+                    }}>
                     <Text style={Styles.mainTitle}>💭 Instrucciones</Text>
                 </TouchableOpacity>
             </View>
@@ -59,7 +71,7 @@ const Styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         flexDirection: 'row',
-    } 
+    }
 })
 
 export default connect(null)(Home);

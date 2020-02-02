@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Text, StyleSheet, View, TextInput } from 'react-native'
 
 
@@ -8,7 +8,7 @@ class Login extends Component {
         user: '',
     }
 
-    handleSubmit =  () => {
+    handleSubmit = () => {
         this.props.dispatch({
             type: 'SET_USER',
             payload: {
@@ -23,7 +23,7 @@ class Login extends Component {
         });
     }
 
-    render(){
+    render() {
         return (
             <>
                 <Text style={{ fontSize: 50 }}>🙋‍♂️</Text>
@@ -38,7 +38,7 @@ class Login extends Component {
                 >
                 </TextInput>
             </>
-        )        
+        )
     }
 
 }

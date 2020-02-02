@@ -1,42 +1,43 @@
 import React, { Component } from 'react'
-import {connect } from 'react-redux'
-import {Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { connect } from 'react-redux'
+import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-class NewGame extends Component{
+class NewGame extends Component {
 
-    buttonHandle(){
+    buttonHandle() {
         this.props.dispatch({
             type: 'SET_NEW_GAME',
-            payload:{
+            payload: {
                 inGame: false,
+                level: 0,
             }
         })
     }
 
-    render(){
-        return(
-            <TouchableOpacity style = {Styles.container}
-                onPress={ () => {
+    render() {
+        return (
+            <TouchableOpacity style={Styles.container}
+                onPress={() => {
                     this.buttonHandle()
                 }}
             >
-                <Text style = {Styles.letter}>➕ Nuevo Juego</Text>
+                <Text style={Styles.letter}>➕ Nuevo Juego</Text>
             </TouchableOpacity>
         )
     }
 }
 
 const Styles = StyleSheet.create({
-    letter:{
+    letter: {
         color: 'white',
     },
-    container:{
+    container: {
         padding: 5,
         borderRadius: 2,
         margin: 20,
         borderColor: 'white',
         borderWidth: 1,
-        
+
     }
 })
 

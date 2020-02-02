@@ -15,7 +15,7 @@ class GenerateSoup {
         return this.limitWords
     }
 
-    getSize(){
+    getSize() {
         return this.sizeBoard
     }
 
@@ -50,18 +50,18 @@ class GenerateSoup {
             default:
                 break
         }
-        switch(category){
+        switch (category) {
             case 1:
                 this.words = ['SAL', 'CARNE', 'POLLO', 'MANI', 'PAN', 'PEZ', 'ARROZ', 'UVA', 'HARINA', 'PAPA', 'PERA', 'PASTA', 'MAIZ', 'DONA', 'LECHE', 'AJO']
                 break
             case 2:
-                this.words = ['GRIS', 'ROSA', 'AZUL', 'ROJO', 'VERDE', 'NEGRO', 'SEPIA', 'LILA', 'MARRON', 'NARANJA', 'BLANCO', 'NEGRO', 'AGUAMARINA', 'BERMELLON', 'SEPIA', 'ARENA']
+                this.words = ['GRIS', 'ROSA', 'AZUL', 'ROJO', 'VERDE', 'NEGRO', 'SEPIA', 'LILA', 'MARRON', 'NARANJA', 'BLANCO', 'OCRE', 'SALMON', 'MORADO', 'PERLA', 'ARENA']
                 break
             case 3:
-                this.words = ['VACA', 'SAPO', 'PUMA', 'CORAL', 'LEMUR', 'CABRA', 'PIOJO', 'RATON', 'BURRO', 'DINGO', 'MANATI', 'CIERVO', 'PANGOLIN', 'PEREZOSO', 'COMADREJA', 'LUCIERNAGA']
+                this.words = ['VACA', 'SAPO', 'PUMA', 'CORAL', 'LEMUR', 'CABRA', 'PIOJO', 'RATON', 'BURRO', 'DINGO', 'MANATI', 'CIERVO', 'GATO', 'PERRO', 'OJEVA', 'TORO']
                 break
             case 4:
-                this.words = ['TAPA', 'VASO', 'BOLSA', 'MESA', 'POTE', 'PAPEL', 'CARRO', 'JARRA', 'PIZARRA', 'CARPETA' ,'CEPILLO', 'MARTILLO', 'TRASTO', 'CERRADURA', 'PLATO', 'TECHO']
+                this.words = ['TAPA', 'VASO', 'BOLSA', 'MESA', 'POTE', 'PAPEL', 'CARRO', 'JARRA', 'CUADRO', 'LAPIZ', 'CEPILLO', 'MOTO', 'TRASTO', 'PESA', 'PLATO', 'TECHO']
                 break
         }
     }
@@ -242,7 +242,7 @@ class GenerateSoup {
                         free = false
                     }
 
-                }else {
+                } else {
                     free = false;
                     break;
                 }
@@ -308,33 +308,41 @@ class GenerateSoup {
         for (let i = 0; i < this.limitWords; i++) {
             let go
 
-            do{
+            do {
                 let type = Math.floor((Math.random() * 4) + 1)
-            
+
                 switch (type) {
                     case 1: {
-                            go = this.putHorizontalWords(this.words[i], Math.floor((Math.random() * places) + 1))
+                        go = this.putHorizontalWords(this.words[i], Math.floor((Math.random() * places) + 1))
                         break
                     }
                     case 2: {
-                            go = this.putVerticalWords(this.words[i], Math.floor((Math.random() * places) + 1))
+                        go = this.putVerticalWords(this.words[i], Math.floor((Math.random() * places) + 1))
                         break
                     }
                     case 3: {
-                            go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), true)
+                        go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), true)
                         break
                     }
                     case 4: {
-                            go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), false)
+                        go = this.putDiagonalWords(this.words[i], Math.floor((Math.random() * places) + 1), false)
                         break
                     }
                     default:
                         break
                 }
-                
-                
-            }while(go == false)
 
+
+            } while (go == false)
+
+        }
+
+        const characters = 'ABCDEFGHIJKMNOPQRSTUVWXYZ';
+        for (let i = 0; i < this.sizeBoard * this.sizeBoard; i++) {
+            if (this.board[i].letter === '*') {
+                let pos = Math.floor((Math.random() * characters.length) + 0)
+                this.board[i].letter = characters[pos]
+            }
         }
 
         return this.board
